@@ -1,16 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-using System.Security.Principal;
-
-internal class Day4_1 : Day
-{
-    protected override string testInput { get; } = @"Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53
-Card 2: 13 32 20 16 61 | 61 30 68 82 17 32 24 19
-Card 3:  1 21 53 59 44 | 69 82 63 72 16 21 14  1
-Card 4: 41 92 73 84 69 | 59 84 76 51 58  5 54 83
-Card 5: 87 83 26 28 32 | 88 30 70 12 93 22 82 36
-Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11";
-
-    protected override string input { get; } = @"Card   1:  4 33 89 61 95 36  5 30 26 55 | 15 33 28 36 93 57 26 13 95  4 18 79  6 87 60 66 69 67 19 42 22 61 78  5 58
+﻿Card   1:  4 33 89 61 95 36  5 30 26 55 | 15 33 28 36 93 57 26 13 95  4 18 79  6 87 60 66 69 67 19 42 22 61 78  5 58
 Card   2:  9 16 48 75 82 61 56 91  3 27 |  4 12 96 20 22 13  6 86 61 94 95 30  9 75 56 38 26 28  7 16 42 55  2 34  8
 Card   3: 91 74 25 36 96 64 70 48 93 89 | 67 86 52 89 19 91 48 64 23 72  6 80 58 96 74 15 35 10 70 63 25 14 87 93 36
 Card   4: 51  1 79 93 89 84 16 70 98 22 | 89 93 15 82 99 32 49 22 16  1 76 13 18 21 98 79 77 84 70 55 24 51 66 26 68
@@ -229,32 +217,4 @@ Card 216: 74 42 58 70 62 66 43  4 78 68 | 95 86 36 52 13 22  6 45 74  2 25 18 99
 Card 217: 26 68  4 18 20 49 48 44 75 54 | 83 36 99 50 66 38 46 13 69 90 61 41 17  5 98 11 87 14 39 84  6 28 77 31 82
 Card 218: 33 13 50 29  8 32 69 44 30 17 | 81 96 70 16 25 28 77 23 19 99 93 61 82 88 26 58 12 30 24 78 97 54 38 90 48
 Card 219: 81 72 88 86  7 12 84 74 38 70 | 67 16 75 25 37 36 26 10 20 99 94 28 79 90 93 68 22 84 47 53 44 82 91 97  8
-Card 220: 56 45 18 93 37 22 52 53 66 69 | 58 79 19 59  9 16 65 24 29 97 88 73 54 83 49 71 15 23 12 57 84 99 35 31 91";
-
-    protected override void Run(string input)
-    {
-        var inputLines = input.Split(new[] { Environment.NewLine }, StringSplitOptions.None).ToList();
-        long result = 0;
-
-        foreach (var line in inputLines.Select(l => l.Substring(l.IndexOf(':') + 2)))
-        {
-            var winningNumber = line.Split('|')[0].Split(' ').Select(n => n.Trim()).Where(n => !string.IsNullOrEmpty(n)).Select(int.Parse).ToList();
-            var cardNumbers = line.Split('|')[1].Split(' ').Select(n => n.Trim()).Where(n => !string.IsNullOrEmpty(n)).Select(int.Parse).ToList();
-
-            long cardResult = 0;
-
-            foreach (var number in cardNumbers)
-            {
-                if (winningNumber.Contains(number))
-                    if (cardResult == 0) cardResult = 1; else cardResult = cardResult * 2;
-
-            }
-
-            result += cardResult;
-        }
-
-        Console.WriteLine(result);
-    }
-
-
-}
+Card 220: 56 45 18 93 37 22 52 53 66 69 | 58 79 19 59  9 16 65 24 29 97 88 73 54 83 49 71 15 23 12 57 84 99 35 31 91

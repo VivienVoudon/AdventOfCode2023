@@ -1,7 +1,30 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using System.Reflection;
+
+int day = 1;
+int step = 1;
+var env = Env.Test;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Console.WriteLine("Hello, World!");
-
-new Day4_2().Solve();
-
-
+var assembly = Assembly.GetExecutingAssembly();
+var dayType = assembly.GetType($"Day{day}_{step}");
+var myDay = (Day)Activator.CreateInstance(dayType);
+if (env == Env.Test)
+    myDay.Test();
+else
+    myDay.Solve();
 Console.WriteLine("THE END");
