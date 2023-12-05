@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 
 int day = 5;
-int step = 1;
+int step = 2;
 var env = Env.Run;
 
 

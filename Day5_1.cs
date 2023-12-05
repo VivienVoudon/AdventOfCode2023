@@ -37,14 +37,21 @@ seed-to-soil map:
             else
             {
                 Console.WriteLine("===================");
-                foreach (var transform in transforms)
-                    Console.WriteLine($"{transform.destinationStart} {transform.sourceStart} {transform.range}");
+                //foreach (var transform in transforms)
+                //    Console.WriteLine($"{transform.destinationStart} {transform.sourceStart} {transform.range}");
 
                 for(var i = 0; i< seeds.Length; i++)
                 {
+                    
+                    //var glop = transforms.Where(t => seeds[i] >= t.sourceStart && seeds[i] <= (t.sourceStart + t.range - 1));
+                    //if (glop.Count() > 1)
+                    //    Console.WriteLine("Pas glop");
+
                     var findTransformation = transforms.FirstOrDefault(t => seeds[i] >= t.sourceStart && seeds[i] <= (t.sourceStart + t.range - 1));
                     if (findTransformation != default)
                         seeds[i] = findTransformation.destinationStart + (seeds[i] - findTransformation.sourceStart);
+
+                    Console.WriteLine(seeds[i]);
                 }
             }
             
