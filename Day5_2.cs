@@ -17,14 +17,10 @@ seed-to-soil map:
 
         var seeds = inputLines[0].Substring(7).Split(' ').Select(long.Parse).ToArray();
 
-        var tmpSeed = new List<long>();
-        for (int i = 0; i < seeds.Length; i = i + 2)
-        {
-            tmpSeed.AddRange(Enumerable.Range(seeds[i], seeds[i+1]).ToArray());
-        }
+        var transforms = new List<(long sourceStart, long destinationStart, long range)>();
 
-        seeds = tmpSeed.ToArray();
-        var transforms = new List<(int sourceStart, int destinationStart, int range)>();
+        var allTransformations = new List<List<(long sourceStart, long destinationStart, long range)>>();
+
         foreach (var line in inputLines.Skip(3))
         {
             // contain "map" ? it's a header, reinit the transform section
@@ -38,26 +34,45 @@ seed-to-soil map:
             if (!string.IsNullOrEmpty(line))
             {
                 var split = line.Split(' ');
-                transforms.Add(new(int.Parse(split[1]), int.Parse(split[0]), int.Parse(split[2])));
+                transforms.Add(new(long.Parse(split[1]), long.Parse(split[0]), long.Parse(split[2])));
             }
             // blank line ? apply the transformation
             else
             {
+                allTransformations.Add(transforms.ToList());
                 //Console.WriteLine("===================");
 
-                for (var i = 0; i < seeds.Length; i++)
-                {
-                    var findTransformation = transforms.FirstOrDefault(t => seeds[i] >= t.sourceStart && seeds[i] <= (t.sourceStart + t.range - 1));
-                    if (findTransformation != default)
-                        seeds[i] = findTransformation.destinationStart + (seeds[i] - findTransformation.sourceStart);
+                //for (var i = 0; i < seeds.Length; i++)
+                //{
+                //    var findTransformation = transforms.FirstOrDefault(t => seeds[i] >= t.sourceStart && seeds[i] <= (t.sourceStart + t.range - 1));
+                //    if (findTransformation != default)
+                //        seeds[i] = findTransformation.destinationStart + (seeds[i] - findTransformation.sourceStart);
 
-                    //Console.WriteLine(seeds[i]);
-                }
+                //    //Console.WriteLine(seeds[i]);
+                //}
             }
 
         }
 
-        Console.WriteLine(seeds.OrderBy(s => s).First());
+        var currentShortPath = long.MaxValue;
+        for (int i = 0; i < seeds.Length; i = i + 2)
+        {
+            for(int y = 0; y < seeds[i+1]; y++)
+            {
+                var currentSeed = seeds[i] + y;
+                foreach (var transform in allTransformations)
+                {
+                    var findTransformation = transform.FirstOrDefault(t => currentSeed >= t.sourceStart && currentSeed <= (t.sourceStart + t.range - 1));
+                    if (findTransformation != default)
+                        currentSeed = findTransformation.destinationStart + (currentSeed - findTransformation.sourceStart);
+                }
+
+                if (currentSeed < currentShortPath)
+                    currentShortPath = currentSeed;
+            }
+        }
+
+        Console.WriteLine(currentShortPath);
 
 
     }
