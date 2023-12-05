@@ -29,6 +29,4 @@ internal class Day4_1 : Day
 
         Console.WriteLine(result);
     }
-
-
 }
