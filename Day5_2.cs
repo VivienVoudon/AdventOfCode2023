@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System.Security.Principal;
 
-internal class Day5_1 : Day
+internal class Day5_2 : Day
 {
     protected override int DayCount => 5;
 

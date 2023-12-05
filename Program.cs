@@ -2,7 +2,7 @@
 
 int day = 5;
 int step = 1;
-var env = Env.Test;
+var env = Env.Run;
 
 
 
