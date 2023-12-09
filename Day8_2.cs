@@ -45,7 +45,7 @@ internal class Day8_2 : Day
                 if(iterationSinceLastGood == previous)
                     Console.WriteLine();
 
-                previous = iterationSinceLastGood
+                previous = iterationSinceLastGood;
                 iterationSinceLastGood = 0;
 
             }
