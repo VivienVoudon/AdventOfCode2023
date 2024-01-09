@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 
-int day = 16;
-int step = 2;
-var env = Env.Run;
+int day = 17;
+int step = 1;
+var env = Env.Test;
 
 
 
